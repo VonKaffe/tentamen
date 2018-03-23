@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Godkänd</title>
+</head>
+<body>
+
+    <!-- HTML för att implementera kraven A-E -->
+    <div id="shelf">
+
+        <div class="products">
+            <div id="image1"></div>
+            <h3 id="name1"></h3>
+            <p id="price1"></p>
+            <p id="description1"></p>
+        </div>
+
+        <div class="products">
+            <div id="image2"></div>
+            <h3 id="name2"></h3>
+            <p id="price2"></p>
+            <p id="description2"></p>
+        </div>
+
+        <div class="products">
+            <div id="image3"></div>
+            <h3 id="name3"></h3>
+            <p id="price3"></p>
+            <p id="description3"></p>
+        </div>
+
+    <!-- Scripts -->
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'http://demo.edument.se/api/products',
+
+            type: 'GET',
+
+            dataType: 'json',
+
+            success: function(data, textStatus, xhr) {
+
+                console.log(data);
+
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log('Error in Database');
+
+            }
+        });
+        });
+
+        function myFunction() {
+            var x = Math.floor((Math.random() * 10) + 1);
+            document.getElementById("demo").innerHTML = x;
+        }
+    </script>
+
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+    <script src="app.js"></script>
+        <script src="products.js"></script>
+</body>
+</html>
