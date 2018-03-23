@@ -9,13 +9,17 @@
 <body>
 
     <!-- HTML för att implementera kraven A-E -->
+
     <div id="shelf">
+        <h1>Total in stock</h1>
+        <p id="demo"> </p>
 
         <div class="products">
             <div id="image1"></div>
             <h3 id="name1"></h3>
             <p id="price1"></p>
             <p id="description1"></p>
+
         </div>
 
         <div class="products">
@@ -23,6 +27,7 @@
             <h3 id="name2"></h3>
             <p id="price2"></p>
             <p id="description2"></p>
+
         </div>
 
         <div class="products">
@@ -30,9 +35,59 @@
             <h3 id="name3"></h3>
             <p id="price3"></p>
             <p id="description3"></p>
-        </div>
 
+
+        </div>
     <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+        <script>
+            angular.module("varukorgApp", [])
+                .controller("varukorgController", function ($scope) {
+                    $scope.varukorg = [];
+                    $scope.varor = [{ namn: "Tagentbord" }, { namn: "Musmatta" }, { namn: "Tagentbord RGB" }];
+                    $scope.valdFarg = "Röd";
+                    $scope.valdAntal = 1;
+                    $scope.antal = [1, 2, 3, 4, 5];
+                    $scope.laggTillVara = function () {
+                        $scope.varukorg.push({ namn: $scope.valdVara.namn, farg: $scope.valdFarg, antal: $scope.valdAntal, meddelande: $scope.meddelande });
+                        console.dir($scope.varukorg);
+                    };
+
+                    $scope.translateColor = function (color) {
+                        switch (color) {
+                            case "Röd": return "red"
+                            case "Blå": return "blue"
+                            case "Grön": return "green"
+                        }
+                    };
+                });
+        </script>
+        </head>
+        <body ng-app="varukorgApp" ng-controller="varukorgController">
+        <form>
+            <h1>Varukorg - demo</h1>
+            <strong>Produkt</strong><select ng-model="valdVara" ng-options="vara.namn for vara in varor"></select><br />
+
+            <strong>Antal</strong> <select ng-model="valdAntal" ng-options="a for a in antal"></select><br />
+            <strong>Meddelande</strong><br />
+
+            <button type="button" ng-click="laggTillVara()">Lägg i varukorg</button>
+            <div>
+                <h2>Varukorg</h2>
+                Följande varor finns i din varukorg
+                <ul ng-repeat="vara in varukorg">
+                    <li ng-class="translateColor(vara.farg)">{{vara.antal}} stycken {{vara.namn}}, färg {{vara.farg}}
+
+                    </li>
+
+                </ul>
+            </div>
+        </form>
+        <script>
+            document.getElementById("demo").innerHTML =
+                Math.floor(Math.random() * 10) + 1;
+
+        </script>
     <script>
         $(document).ready(function() {
             $.ajax({
@@ -58,6 +113,7 @@
             var x = Math.floor((Math.random() * 10) + 1);
             document.getElementById("demo").innerHTML = x;
         }
+
     </script>
 
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
